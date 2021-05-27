@@ -1,8 +1,9 @@
 import { gql } from "apollo-server";
 
 export default gql`
-  type AccountResult {
+  type Result {
     ok: Boolean!
+    token: String
     error: String
   }
 
@@ -20,19 +21,5 @@ export default gql`
 
   type Query {
     users: [User]
-    user(username: String!): User
-  }
-
-  type Mutation {
-    createAccount(
-      username: String!
-      email: String!
-      name: String!
-      location: String
-      avatarURL: String
-      githubUsername: String
-      password: String!
-    ): AccountResult!
-    deleteAccount(username: String!): AccountResult!
   }
 `;

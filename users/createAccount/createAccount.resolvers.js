@@ -1,11 +1,11 @@
-import client from "../client";
 import bcrypt from "bcrypt";
 
 export default {
   Mutation: {
     createAccount: async (
       _,
-      { username, email, name, location, avatarURL, githubUsername, password }
+      { username, email, name, location, avatarURL, githubUsername, password },
+      { client }
     ) => {
       const existedUser = await client.user.findFirst({
         where: {
@@ -33,16 +33,6 @@ export default {
         },
       });
 
-      return { ok: true };
-    },
-    deleteAccount: async (_, { username }) => {
-      const existedUser = await client.user.findUnique({
-        where: { username },
-      });
-      if (!existedUser) {
-        return { ok: false, error: "ERROR! username is not existed" };
-      }
-      await client.user.delete({ where: { username } });
       return { ok: true };
     },
   },
