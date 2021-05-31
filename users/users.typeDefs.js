@@ -7,6 +7,12 @@ export default gql`
     error: String
   }
 
+  type UserResult {
+    ok: Boolean!
+    error: String
+    Users: [User]
+  }
+
   type User {
     id: Int!
     username: String!
@@ -17,9 +23,7 @@ export default gql`
     githubUsername: String
     createdAt: String!
     updatedAt: String!
-  }
-
-  type Query {
-    users: [User]
+    followers(page: Int!): [User]
+    following(page: Int!): [User]
   }
 `;

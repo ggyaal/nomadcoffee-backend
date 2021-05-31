@@ -28,3 +28,9 @@ export const protectedResolver = (resolver) => (root, args, ctx, info) => {
   }
   return resolver(root, args, ctx, info);
 };
+
+export const existUser = async (username) => {
+  if (!username) return false;
+  const exist = await client.user.count({ where: { username } });
+  return Boolean(exist);
+};
