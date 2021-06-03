@@ -8,8 +8,7 @@
     "studio": "npx prisma studio",
     "build": "babel src --out-dir build",
     "start": "node build/server",
-    "prebuild": "rm -rf build",
-    "prestart": "npm run build"
+    "prebuild": "rm -rf build"
   },
   "repository": {
     "type": "git",
