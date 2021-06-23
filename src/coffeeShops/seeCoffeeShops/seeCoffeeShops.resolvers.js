@@ -2,8 +2,8 @@ export default {
   Query: {
     seeCoffeeShops: (_, { page }, { client }) => ({
       coffeeShops: client.coffeeShop.findMany({
-        take: 5,
-        skip: (page - 1) * 5,
+        take: 2,
+        skip: (page - 1) * 2,
       }),
     }),
   },
