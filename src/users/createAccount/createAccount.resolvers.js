@@ -1,12 +1,14 @@
 import bcrypt from "bcrypt";
+import { uploadToS3 } from "../../shared.utils";
 
 export default {
   Mutation: {
     createAccount: async (
       _,
-      { username, email, name, location, avatarURL, githubUsername, password },
+      { username, email, name, location, avatar, githubUsername, password },
       { client }
     ) => {
+      const usersConunt = await client.user.count();
       const existedUser = await client.user.findFirst({
         where: {
           OR: [{ username }, { email }],
@@ -17,6 +19,10 @@ export default {
           ok: false,
           error: "ERROR! username/email is already existed.",
         };
+      }
+      let avatarURL = null;
+      if (avatar) {
+        avatarURL = await uploadToS3(avatar, usersConunt + 1, "avatar");
       }
 
       const hashingPassword = await bcrypt.hash(password, 10);

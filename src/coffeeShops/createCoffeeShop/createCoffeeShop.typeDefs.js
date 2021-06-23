@@ -5,7 +5,7 @@ export default gql`
     createCoffeeShop(
       name: String!
       categories: String
-      photos: String
+      photos: [Upload]
       latitude: String
       longitude: String
     ): Result!

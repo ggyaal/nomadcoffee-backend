@@ -7,7 +7,7 @@ export default gql`
       email: String!
       name: String!
       location: String
-      avatarURL: String
+      avatar: Upload
       githubUsername: String
       password: String!
     ): Result!

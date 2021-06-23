@@ -8,7 +8,8 @@
     "studio": "npx prisma studio",
     "build": "babel src --out-dir build",
     "start": "node build/server",
-    "prebuild": "rm -rf build"
+    "prebuild": "rm -rf build",
+    "preinstall": "npx npm-force-resolutions"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "@babel/cli": "^7.14.3",
     "@prisma/client": "^2.23.0",
     "apollo-server": "^2.24.1",
+    "aws-sdk": "^2.925.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.0",
@@ -38,5 +40,9 @@
     "nodemon": "^2.0.7",
     "prisma": "^2.23.0"
   },
-  "homepage": "https://github.com/ggyaal/nomadcoffee-backend#readme"
+  "homepage": "https://github.com/ggyaal/nomadcoffee-backend#readme",
+  "resolutions": {
+    "fs-capacitor": "^6.2.0",
+    "graphql-upload": "^11.0.0"
+  }
 }

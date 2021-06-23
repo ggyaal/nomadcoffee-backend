@@ -1,3 +1,4 @@
+import { uploadToS3 } from "../../shared.utils";
 import { protectedResolver } from "../../users/users.utils";
 import { splitArrData } from "../coffeeShop.util";
 
@@ -15,7 +16,9 @@ export default {
         }
         let photosObj = [];
         if (photos) {
-          photosObj = splitArrData(photos, "url");
+          photosObj = photos.map((file) =>
+            uploadToS3(file, loggedInUser.id, "photos")
+          );
         }
         await client.coffeeShop.create({
           data: {

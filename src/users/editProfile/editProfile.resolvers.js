@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { uploadToS3 } from "../../shared.utils";
 import { protectedResolver } from "../users.utils";
 
 export default {
@@ -7,31 +8,34 @@ export default {
       async (
         _,
         {
-          username,
           email,
           name,
           location,
-          avatarURL,
+          avatar,
           githubUsername,
           password: newPassword,
         },
         { loggedInUser, client }
       ) => {
+        let avatarURL = null;
         let hashingPassword = null;
 
         if (newPassword) {
           hashingPassword = await bcrypt.hash(newPassword, 10);
         }
 
+        if(avatar) {
+          avatarURL = await uploadToS3(avatar, loggedInUser.id, "avatar");
+        }
+
         const updatedUser = await client.user.update({
           where: { id: loggedInUser.id },
           data: {
-            username,
             email,
             name,
             location,
-            avatarURL,
             githubUsername,
+            ...(avatarURL && { avatarURL }),
             ...(newPassword && { password: hashingPassword }),
           },
         });

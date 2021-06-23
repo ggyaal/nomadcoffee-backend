@@ -1,5 +1,5 @@
 import { protectedResolver } from "../../users/users.utils";
-import { splitArrData } from "../coffeeShop.util";
+import { splitArrData, uploadArrData } from "../coffeeShop.util";
 
 export default {
   Mutation: {
@@ -23,13 +23,13 @@ export default {
         if (!ok) return { ok: false, error: "Not found Shop." };
 
         let categoryObj = [];
-        if (photos) {
+        if (categories) {
           categoryObj = splitArrData(categories, "name");
         }
 
         let photosObj = [];
         if (photos) {
-          photosObj = splitArrData(photos, "url");
+          photosObj = await uploadArrData(photos, loggedInUser.id, "photos", "url");
         }
 
         await client.coffeeShop.update({
