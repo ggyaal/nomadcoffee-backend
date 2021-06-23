@@ -1,13 +1,10 @@
 export default {
   Query: {
-    seeCoffeeShops: (_, { page }, { client }) => ({
+    seeCoffeeShops: (_, { offset }, { client }) => ({
       coffeeShops: client.coffeeShop.findMany({
         take: 2,
-        skip: (page - 1) * 2,
+        ...(offset && { skip: offset }),
       }),
     }),
-  },
-  CoffeeShopResult: {
-    totalShops: (_, __, { client }) => client.coffeeShop.count(),
   },
 };
