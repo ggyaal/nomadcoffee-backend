@@ -19,6 +19,7 @@ export default {
         where: {
           name: {
             contains: term.toLowerCase(),
+            mode: "insensitive",
           },
         },
       });
